@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name = "USERS")
+@Entity
 public class User implements BaseBean {
 
 	@Id
@@ -27,7 +30,7 @@ public class User implements BaseBean {
 	@Column(name = "gender")
 	private char gender;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<Post> posts;
 
 	public User() {
