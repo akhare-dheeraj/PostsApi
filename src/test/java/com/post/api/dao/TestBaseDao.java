@@ -41,4 +41,54 @@ public class TestBaseDao {
 		Assert.assertEquals(bean, user);
 		baseDao.closeSession();
 	}
+	
+	@Test
+	@Rollback(true)
+	public void testDeleteBean() {
+		User user = new User("TestUser2", 26, 'M');
+		baseDao.openSessionAndTransaction();
+		Long userId = (Long) baseDao.save(user);
+		baseDao.commitTransaction();
+		baseDao.startTransaction();
+		baseDao.delete(user.getUserId(), User.class);
+		baseDao.commitTransaction();
+		baseDao.startTransaction();
+		Assert.assertTrue(baseDao.get(userId, User.class)==null);
+		baseDao.commitTransaction();
+		baseDao.closeSession();
+	}
+	
+	@Test
+	@Rollback(true)
+	public void testUpdate() {
+		User user = new User("TestUser3", 26, 'M');
+		baseDao.openSessionAndTransaction();
+		baseDao.save(user);
+		baseDao.commitTransaction();
+		String oldName = user.getUserName();
+		user.setUserName("New Test user");
+		baseDao.startTransaction();
+		baseDao.update(user);
+		baseDao.commitTransaction();
+		baseDao.startTransaction();
+		user = (User) baseDao.get(user.getUserId(), User.class);
+		baseDao.commitTransaction();
+		Assert.assertNotEquals(oldName, user.getUserName());
+		baseDao.closeSession();
+	}
+	
+	@Test
+	@Rollback(true)
+	public void testGetAllBeans() {
+		User user1 = new User("User1", 26, 'F');
+		User user2 = new User("User2", 26, 'F');
+		baseDao.openSessionAndTransaction();
+		baseDao.save(user2);
+		baseDao.save(user1);
+		baseDao.commitTransaction();
+		baseDao.startTransaction();
+		Assert.assertTrue(baseDao.getAllBeans(User.class).size()>1);
+		baseDao.commitTransaction();
+		baseDao.closeSession();
+	}
 }
