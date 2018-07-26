@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Table(name = "COMMENTS")
@@ -21,10 +21,11 @@ public class Comment implements BaseBean {
 	@Column(name = "description", nullable = false)
 	private String description;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+
+	@OneToOne(cascade = CascadeType.PERSIST, optional = false)
 	private User user;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Post post;
 	
 	@Column(name = "upvotes")

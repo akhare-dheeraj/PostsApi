@@ -24,7 +24,9 @@ public class TestBaseDao {
 	@Rollback(true)
 	public void testSaveBean() {
 		User user = new User("TestUser", 26, 'M');
+		baseDao.openSessionAndTransaction();
 		Serializable id = baseDao.save(user);
+		baseDao.commitTransaction();
 		Assert.assertNotNull(id);
 	}
 	
@@ -32,8 +34,11 @@ public class TestBaseDao {
 	@Rollback(true)
 	public void testGetBean() {
 		User user = new User("TestUser1", 26, 'M');
+		baseDao.openSessionAndTransaction();
 		Serializable id = baseDao.save(user);
 		User bean = (User) baseDao.get(id, User.class);
+		baseDao.commitTransaction();
 		Assert.assertEquals(bean, user);
+		baseDao.closeSession();
 	}
 }

@@ -30,8 +30,11 @@ public class User implements BaseBean {
 	@Column(name = "gender")
 	private char gender;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY)
 	private Set<Post> posts;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY)
+	private Set<Comment> comments;
 
 	public User() {
 	}

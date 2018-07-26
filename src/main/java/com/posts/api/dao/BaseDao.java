@@ -11,4 +11,9 @@ public interface BaseDao {
 	public BaseBean update(BaseBean bean);
 	public BaseBean get(Serializable id, Class<? extends BaseBean> className);
 	public Set<BaseBean> getAllBeans(Class<? extends BaseBean> className);
+	void closeSession();
+	void openNewSession();
+	void openSessionAndTransaction();
+	void startTransaction();
+	void commitTransaction();
 }
