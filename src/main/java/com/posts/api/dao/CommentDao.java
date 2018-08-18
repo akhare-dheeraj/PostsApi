@@ -35,10 +35,9 @@ public class CommentDao extends AbstractBaseDao<Comment> {
 	public void delete(Serializable id) {
 		logger.info("Deleting comment with id:"+id);
 		Session session = getCurrentSession();
-		Comment comment = (Comment) session.get(Session.class, id);
+		Comment comment = (Comment) session.get(Comment.class, id);
 		if(comment!=null)
 			session.delete(comment);
 		logger.info("Bean deleted with id:"+id);
 	}
-
 }

@@ -1,7 +1,7 @@
 package com.posts.api.beans;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,7 +27,7 @@ public class User extends BaseBean {
 	@Column(name = "id")
 	private Long userId;
 	
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false)
 	private String userName;
 	
 	@Column(name = "age")
@@ -37,10 +37,10 @@ public class User extends BaseBean {
 	private char gender;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY, orphanRemoval = true)
-	private Set<Post> posts;
+	private List<Post> posts;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY, orphanRemoval = true)
-	private Set<Comment> comments;
+	private List<Comment> comments;
 
 	public User() {
 	}
@@ -110,12 +110,12 @@ public class User extends BaseBean {
 	}
 
 	
-	public Set<Post> getPosts() {
-		posts = posts==null?new HashSet<>():posts;
+	public List<Post> getPosts() {
+		posts = posts==null?new ArrayList<>():posts;
 		return posts;
 	}
 
-	public void setPosts(Set<Post> posts) {
+	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
 
@@ -125,12 +125,12 @@ public class User extends BaseBean {
 				+ posts + "]";
 	}
 
-	public Set<Comment> getComments() {
-		comments = comments==null?new HashSet<>():comments;
+	public List<Comment> getComments() {
+		comments = comments==null?new ArrayList<>():comments;
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 }

@@ -1,7 +1,7 @@
 package com.posts.api.beans;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +17,8 @@ import javax.validation.constraints.NotNull;
 
 @Table(name = "POSTS")
 @Entity
-public class Post extends BaseBean{
-	
+public class Post extends BaseBean {
+
 	/**
 	 * 
 	 */
@@ -28,25 +28,25 @@ public class Post extends BaseBean{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long postId;
-	
-	@Column(name = "title", nullable=false)
+
+	@Column(name = "title", nullable = false)
 	private String title;
-	
+
 	@NotNull
 	private String topic;
-	
+
 	@NotNull
 	private String description;
-	
+
 	@ManyToOne(optional = false)
 	private User user;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "post", fetch = FetchType.LAZY, orphanRemoval = true)
-	private Set<Comment> comments;
-	
+	private List<Comment> comments;
+
 	@Column
 	private long upvotes;
-	
+
 	@Column
 	private long downvotes;
 
@@ -60,7 +60,7 @@ public class Post extends BaseBean{
 		this.description = description;
 		this.user = user;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,8 +71,9 @@ public class Post extends BaseBean{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
+		}
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -125,7 +126,7 @@ public class Post extends BaseBean{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public long getUpvotes() {
 		return upvotes;
 	}
@@ -141,21 +142,21 @@ public class Post extends BaseBean{
 	public void setDownvotes(long downvotes) {
 		this.downvotes = downvotes;
 	}
-	
-	public Set<Comment> getComments() {
-		comments = comments==null?new HashSet<>():comments;
+
+	public List<Comment> getComments() {
+		comments = comments == null ?new ArrayList<>() : comments;
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", title=" + title + ", topic=" + topic + ", description=" + description
-				+ ", user=" + user.getUserId() + ", comments=" + comments + ", upvotes=" + upvotes + ", downvotes=" + downvotes
-				+ "]";
+				+ ", user=" + user.getUserId() + ", comments=" + comments + ", upvotes=" + upvotes + ", downvotes="
+				+ downvotes + "]";
 	}
 
 }
