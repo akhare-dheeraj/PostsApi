@@ -1,5 +1,6 @@
 package com.posts.api.beans;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,15 +10,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Table(name = "POSTS")
 @Entity
-public class Post implements BaseBean{
+public class Post extends BaseBean{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2337674319154546722L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -32,10 +38,10 @@ public class Post implements BaseBean{
 	@NotNull
 	private String description;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(optional = false)
 	private User user;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "post", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "post", fetch = FetchType.LAZY, orphanRemoval = true)
 	private Set<Comment> comments;
 	
 	@Column
@@ -137,6 +143,7 @@ public class Post implements BaseBean{
 	}
 	
 	public Set<Comment> getComments() {
+		comments = comments==null?new HashSet<>():comments;
 		return comments;
 	}
 
@@ -147,7 +154,7 @@ public class Post implements BaseBean{
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", title=" + title + ", topic=" + topic + ", description=" + description
-				+ ", user=" + user + ", comments=" + comments + ", upvotes=" + upvotes + ", downvotes=" + downvotes
+				+ ", user=" + user.getUserId() + ", comments=" + comments + ", upvotes=" + upvotes + ", downvotes=" + downvotes
 				+ "]";
 	}
 

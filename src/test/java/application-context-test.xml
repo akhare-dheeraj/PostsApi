@@ -35,5 +35,7 @@
 		</property>
 	</bean>
 	
-	<bean id="baseDao" class="com.posts.api.dao.BaseDaoImpl" />
+	<bean id="commentDao" class="com.posts.api.dao.CommentDao" />
+	<bean id="userDao" class="com.posts.api.dao.UserDao" />
+	<bean id="postDao" class="com.posts.api.dao.PostDao" />
 </beans>

@@ -1,17 +1,21 @@
 package com.posts.api.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Table(name = "COMMENTS")
 @Entity
-public class Comment implements BaseBean {
+public class Comment extends BaseBean {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3455821516615064833L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,17 +26,17 @@ public class Comment implements BaseBean {
 	private String description;
 	
 
-	@OneToOne(cascade = CascadeType.PERSIST, optional = false)
+	@ManyToOne(optional = false)
 	private User user;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(optional = false)
 	private Post post;
 	
 	@Column(name = "upvotes")
-	private Long upvotes;
+	private long upvotes;
 	
 	@Column(name = "downvotes")
-	private Long downvotes;
+	private long downvotes;
 
 	public Comment() {
 	}
@@ -116,5 +120,12 @@ public class Comment implements BaseBean {
 	public void setDownvotes(Long downvotes) {
 		this.downvotes = downvotes;
 	}
+
+	@Override
+	public String toString() {
+		return "Comment [commentId=" + commentId + ", description=" + description + ", user=" + user.getUserId() + ", post=" + post.getPostId()
+				+ ", upvotes=" + upvotes + ", downvotes=" + downvotes + "]";
+	}
+	
 	
 }
