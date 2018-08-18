@@ -39,4 +39,6 @@
 	<bean id="commentDao" class="com.posts.api.dao.CommentDao" />
 	<bean id="userDao" class="com.posts.api.dao.UserDao" />
 	<bean id="postDao" class="com.posts.api.dao.PostDao" />
+	
+	<bean id="userService" class="com.posts.api.service.UserService" />
 </beans>

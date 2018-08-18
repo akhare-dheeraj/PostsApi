@@ -79,7 +79,7 @@ public abstract class AbstractBaseDao<T extends BaseBean> {
 		closeSession();
 	}
 
-	public void rollBackAndClose() {
+	public void rollBackAndCloseSession() {
 		rollBack();
 		closeSession();
 	}
