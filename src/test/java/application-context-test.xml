@@ -41,4 +41,5 @@
 	<bean id="postDao" class="com.posts.api.dao.PostDao" />
 	
 	<bean id="userService" class="com.posts.api.service.UserService" />
+	<bean id="postService" class="com.posts.api.service.PostService" />
 </beans>
