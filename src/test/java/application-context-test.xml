@@ -42,4 +42,5 @@
 	
 	<bean id="userService" class="com.posts.api.service.UserService" />
 	<bean id="postService" class="com.posts.api.service.PostService" />
+	<bean id="commentService" class="com.posts.api.service.CommentService" />
 </beans>

@@ -16,11 +16,10 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 
-	public User persistUser(User user) {
+	public void persistUser(User user) {
 		try {
 			userDao.openSessionAndTransaction();
 			userDao.persist(user);
-			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			userDao.rollBackAndCloseSession();
@@ -30,11 +29,10 @@ public class UserService {
 		}
 	}
 
-	public User updateUser(User user) {
+	public void updateUser(User user) {
 		try {
 			userDao.openSessionAndTransaction();
 			userDao.update(user);
-			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			userDao.rollBackAndCloseSession();

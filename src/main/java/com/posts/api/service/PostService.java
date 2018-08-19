@@ -13,11 +13,10 @@ public class PostService {
 	@Autowired
 	private PostDao postDao;
 
-	public Post persistPost(Post post) {
+	public void persistPost(Post post) {
 		try {
 			postDao.openSessionAndTransaction();
 			postDao.persist(post);
-			return post;
 		} catch (Exception e) {
 			e.printStackTrace();
 			postDao.rollBackAndCloseSession();
@@ -27,11 +26,10 @@ public class PostService {
 		}
 	}
 
-	public Post updatePost(Post post) {
+	public void updatePost(Post post) {
 		try {
 			postDao.openSessionAndTransaction();
 			postDao.update(post);
-			return post;
 		} catch (Exception e) {
 			e.printStackTrace();
 			postDao.rollBackAndCloseSession();

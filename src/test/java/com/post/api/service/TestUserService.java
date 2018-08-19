@@ -22,8 +22,8 @@ public class TestUserService {
 	@Test
 	public void testPersistUser() {
 		User user = new User("Dheeraj", 27, 'M');
-		User savedUser = userService.persistUser(user);
-		Assert.assertNotNull(savedUser.getUserId());
+		userService.persistUser(user);
+		Assert.assertNotNull(user.getUserId());
 	}
 	
 	@Test
@@ -31,7 +31,7 @@ public class TestUserService {
 		User user = new User("User 1", 34, 'F');
 		userService.persistUser(user);
 		user.setUserName("User 2");
-		user = userService.updateUser(user);
+		userService.updateUser(user);
 		Assert.assertEquals(user.getUserName(), "User 2");
 	}
 	
