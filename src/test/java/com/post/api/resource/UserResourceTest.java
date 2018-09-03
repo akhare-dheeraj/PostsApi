@@ -52,8 +52,4 @@ public class UserResourceTest extends BaseResourceTest {
 		Assert.assertNotNull(response);
 		Assert.assertEquals(200, response.getStatus());
 	}
-	private UserDto createUserDto() {
-		UserDto userDto = new UserDto("UserName", 'M', 24);
-		return userDto;
-	}
 }
