@@ -13,7 +13,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/application-config.xml</param-value>
+        <param-value>classpath:application-config.xml</param-value>
     </context-param>
 
     <listener>
@@ -26,17 +26,19 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	-->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/mvc-config.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
+       <servlet-class>
+                     org.glassfish.jersey.servlet.ServletContainer
+         </servlet-class>
+         <init-param>
+		     <param-name>jersey.config.server.provider.packages</param-name>
+		     <param-value>com.posts.api.resource</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

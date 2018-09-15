@@ -1,5 +1,8 @@
 package com.posts.api.resource;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,7 +15,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.gson.JsonObject;
 import com.posts.api.beans.User;
 import com.posts.api.dto.UserDto;
 import com.posts.api.dto.util.BeanTransformer;
@@ -46,9 +48,9 @@ public class UserResource {
 	public Response deleteUser(@PathParam("userId") Long userId) {
 		try {
 			userService.deleteUser(userId);
-			JsonObject obj = new JsonObject();
-			obj.addProperty("success", "true");
-			return Response.ok(obj).build();
+			Map<String, Boolean> status = new HashMap<>();
+			status.put("success", true);
+			return Response.ok(status).build();
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
@@ -85,5 +87,12 @@ public class UserResource {
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
+	}
+	
+	@GET
+	@Path("/test")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response test() {
+		return Response.ok("Working").build();
 	}
 }

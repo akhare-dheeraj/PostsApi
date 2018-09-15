@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:annotation-config />
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:college" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.posts.api.beans.Post</value>
+				<value>com.posts.api.beans.Comment</value>
+				<value>com.posts.api.beans.User</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="commentDao" class="com.posts.api.dao.CommentDao" />
+	<bean id="userDao" class="com.posts.api.dao.UserDao" />
+	<bean id="postDao" class="com.posts.api.dao.PostDao" />
+	
+	<bean id="userService" class="com.posts.api.service.UserService" />
+	<bean id="postService" class="com.posts.api.service.PostService" />
+	<bean id="commentService" class="com.posts.api.service.CommentService" />
+</beans>
